@@ -1,0 +1,16 @@
+{
+  "name": "generate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "read.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^4.0.2",
+    "select-random-file": "^1.1.0",
+    "underscore": "^1.8.3"
+  }
+}
