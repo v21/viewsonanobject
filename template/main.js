@@ -6,6 +6,7 @@ var height = 500;
 var renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setClearColor( 0xffffff, 0 );
 renderer.setSize( width, height );
+renderer.sortObjects = false;
 //document.body.appendChild( renderer.domElement );
 
 var aspect = width / height;
@@ -94,6 +95,7 @@ var render = function(params)
 		
 
 		function ( object ) {
+			object.frustumCulled = false;
 
 			if (params.showSingleGroup)
 			{
@@ -115,12 +117,13 @@ var render = function(params)
 				var object = object.clone();
 				objects[i] = object;
 
-				var sum_bbox;
+				var sum_bbox = null;
 
 				var material = new THREE.MeshLambertMaterial({color: 0xffffff, side: THREE.DoubleSide});
 				object.traverse( function ( child ) {
 			        if ( child instanceof THREE.Mesh ) {
-			        	
+			        	child.frustumCulled = false;
+
 			            child.material = material;
 
 			            child.geometry.computeBoundingBox();
@@ -164,7 +167,7 @@ var render = function(params)
 
 			}
 
-			var sum_bbox;
+			var sum_bbox = null;
 
 			scene.updateMatrixWorld();	
 			

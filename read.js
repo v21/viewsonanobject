@@ -237,9 +237,9 @@ function generateBook(parsed)
 
 
 
-	pages.push({model : perturbed_file, randomRot: false});
-	pages.push({model : shuffled_file, randomRot: false});
-	pages.push({model : sorted_file, randomRot: false});
+	pages.push({model : perturbed_file, randomRot: true});
+	pages.push({model : shuffled_file, randomRot: true});
+	pages.push({model : sorted_file, randomRot: true});
 
 
 	//console.log(pages);
