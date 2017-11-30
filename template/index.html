@@ -2,17 +2,67 @@
 <html>
 	<head>
 		<meta charset=utf-8>
-		<title>My first three.js app</title>
+		<title>views on an object</title>
 		<style>
-			body { margin: 0; }
-			/*canvas { width: 100%; height: 100% }*/
+		 	@import url('/Inconsolata');
+			body { margin: 30%; 
+			font-family: 'Inconsolata', monospace;
+			font-size: 14px;
+
+			}
+			#title{
+				font-weight: bold;
+				font-size: 16px;
+				text-align: center;
+			}
+			#metadata{
+				font-weight: bold;
+				font-size: 12px;
+				text-align: center;
+			}
+
 		</style>
 	</head>
 	<body>
+		
 		<script src="pages.js"></script>
 		<script src="rng.js"></script>
 		<script src="three.js"></script>
 		<script src="OBJLoader.js"></script>
+		<script src="data.js"></script>
+
+		<div id="title">views on an object</div><br><br><br>
+		<div id="jpgImg"></div><br><br><br>
+		<div id="metadata"></div><br><br><br>
+		<center><div id ="renders"></div></center>
+
+		<script>
+
+		var dataName = JSON.stringify(JSONdata.metadata.name).replace(/["\[\]]/g, '').replace(/,/g, "<br>");
+		var dataGroups = JSON.stringify(JSONdata.metadata.groups).replace(/["\[\]]/g, '').replace(/,/g, "<br>");
+		var dataUseMaterial = JSON.stringify(JSONdata.metadata.use_material).replace(/["\[\]]/g, '').replace(/,/g, "<br>");
+		var dataMtlLib = JSON.stringify(JSONdata.metadata.mtl_lib).replace(/["\[\]]/g, '').replace(/,/g, "<br>");
+
+		var div = document.getElementById('metadata');
+		div.innerHTML += "CONTENTS<br><br>name:<br>";
+		div.innerHTML += dataName;
+		div.innerHTML += "<br><br>";
+		div.innerHTML += "groups:<br>";
+		div.innerHTML += dataGroups;
+		div.innerHTML += "<br><br>";
+		div.innerHTML += "materials:<br>";
+		div.innerHTML += dataUseMaterial;
+		div.innerHTML += "<br><br>";
+		div.innerHTML += "material library:<br>";
+		div.innerHTML += dataMtlLib;
+		div.innerHTML += "<br><br>";
+
+		document.getElementById('jpgImg').innerHTML = "<center><img src= " + dataName + ".jpg></center>";
+
+		</script>
+
 		<script src="main.js"></script>
+
+
 	</body>
 </html>

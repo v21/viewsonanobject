@@ -13,11 +13,13 @@ randomFile('NTU3D', (err, file) => {
 	callFile(filetry);
 
 	fs.copySync('template/', "output/" + filetry);
+
 });
 
 
 
 function callFile(file){
+
 	fs.readFile('NTU3D/' + file + ".obj", 'utf8', function (error, data) {
 		var here = data;
 		here = here.split(/\r?\n/);
@@ -50,7 +52,7 @@ function callFile(file){
 		var here2 = here.sort(); // sort in numerical order
 		done(here2, process);
 
-
+		copyJpg(filetry + ".jpg");
 		generateBook(parsed);
 
 	});
@@ -237,9 +239,9 @@ function generateBook(parsed)
 
 
 
-	pages.push({model : perturbed_file, randomRot: true});
-	pages.push({model : shuffled_file, randomRot: true});
-	pages.push({model : sorted_file, randomRot: true});
+	pages.push({model : perturbed_file, randomRot: false});
+	pages.push({model : shuffled_file, randomRot: false});
+	pages.push({model : sorted_file, randomRot: false});
 
 
 	//console.log(pages);
@@ -271,14 +273,19 @@ console.log(newfile + ' has been saved!');
 }
 
 function writeJson(parseString){
-var fd = fs.openSync("output/"+ filetry+ "/" + "data.json", 'w+');
-var data = fs.readFileSync("output/"+ filetry+ "/" + "data.json");
+var fd = fs.openSync("output/"+ filetry+ "/" + "data.js", 'w+');
+var data = fs.readFileSync("output/"+ filetry+ "/" + "data.js");
 //var buffer = new ArrayBuffer(parseString);
-parseString = JSON.stringify(parseString, null, '\t');
+parseString = "var JSONdata = " + JSON.stringify(parseString, null, '\t');
 console.log(parseString)
 fs.writeSync(fd, parseString);
 fs.close(fd);
 }
 
 
-
+function copyJpg(source){
+fs.copy("NTU3D/" + source, "output/" + filetry + "/" + source, (err) => {
+  if (err) throw err;
+  console.log('jpg was copied');
+});
+}

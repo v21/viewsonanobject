@@ -24,12 +24,13 @@ var render = function(params)
 	context.canvas.width  = width;
 	context.canvas.height = height;
 
-	document.body.appendChild( canvas);
+	document.getElementById('renders').appendChild( canvas);
 
 
 	var div = document.createElement("div");
 	div.innerHTML = JSON.stringify(params);
-	document.body.appendChild( div);
+	
+	document.getElementById('renders').appendChild( div);
 
 
 	var camera;
