@@ -28,6 +28,8 @@ function callFile(file){
 
 		var parsed = parseFile(here);
 
+		
+
 
 		var process = "truncate";
 		var truncations = 20;//_.random(15,25);
@@ -67,44 +69,50 @@ function callFile(file){
 var parseFile = function(lines)
 {
 
-var parseString = {
-files: {
-	original_file: filetry + "_original_edit.obj",
-	perturbed_file: filetry + "_perturb_edit.obj",
-	shuffled_file: filetry + "_shuffle_edit.obj",
-	sorted_file: filetry + "_sort_edit.obj",
-},
-metadata: {
-	name: filetry,
-	groups: [],
-	use_material: [],
-//	comments: [],
-	mtl_lib: [],
-}
-}
-		_.each(lines, line => {
+	var parseString = {
+		files: {
+			original_file: filetry + "_original_edit.obj",
+			perturbed_file: filetry + "_perturb_edit.obj",
+			shuffled_file: filetry + "_shuffle_edit.obj",
+			sorted_file: filetry + "_sort_edit.obj",
+		},
+		metadata: {
+			name: filetry,
+			groups: [],
+			use_material: [],
+		//	comments: [],
+			mtl_lib: [],
+		},
+		lines : lines,
+		contents: makeContents(lines)
+	};
 
-			if (line.startsWith("mtllib "))
-			{
-				parseString.metadata.mtl_lib.push(line.substring(7));
-			}
+
+
+	_.each(lines, line => {
+
+		if (line.startsWith("mtllib "))
+		{
+			parseString.metadata.mtl_lib.push(line.substring(7));
+		}
 /*
-			if (line.startsWith("# "))
-			{
-				parseString.metadata.comments.push(line.substring(2));
-			}
+		if (line.startsWith("# "))
+		{
+			parseString.metadata.comments.push(line.substring(2));
+		}
 */
-			if (line.startsWith("g "))
-			{
-				parseString.metadata.groups.push(line.substring(2));
-			}
+		if (line.startsWith("g "))
+		{
+			parseString.metadata.groups.push(line.substring(2));
+		}
 
-			if (line.startsWith("usemtl "))
-			{
-				parseString.metadata.use_material.push(line.substring(7));
-			}
-		});
-			writeJson(parseString);
+		if (line.startsWith("usemtl "))
+		{
+			parseString.metadata.use_material.push(line.substring(7));
+		}
+	});
+	
+	writeJson(parseString);
 
 	return parseString;
 }
@@ -144,6 +152,55 @@ return array;
 
 
 
+function makeContents(lines)
+{
+	var outp = "<div class=\"contents\">";
+	var justOutputtedGroup = false;
+	for (var i = 0; i < lines.length; i++) {
+		var line = lines[i];
+	
+		if (line.startsWith("mtllib "))
+		{
+			outp += "<h2>" + line.substring(7).substring(0, line.length - 11).toString() + "</h2>";
+			console.log(line);
+			console.log("mtllib " + line.substring(7).toString());
+		}
+
+		if (line.startsWith("# object "))
+		{
+			outp += "<h3>" + line.substring(9).toString() + "</h3>";
+			console.log(line);
+			console.log("# obj" + line.substring(9).toString());
+			justOutputtedGroup = true;
+		}
+		else
+		{
+			if (line.startsWith("g "))
+			{
+				if (!justOutputtedGroup)
+				{
+					outp += "<h3 class=\"g\">" + line.substring(2).toString() + "</h3>";
+					console.log(line);
+					console.log("g" + line.substring(2).toString());
+				}
+			}
+			else
+			{
+				justOutputtedGroup = false;
+			}
+		}	
+
+
+		if (line.startsWith("usemtl "))
+		{
+			outp += "<h4>" + line.substring(7).toString() + "</h4>";
+			console.log("usemtl" + line.substring(7).toString());
+		}
+	}
+	outp += "</div>";
+	return outp;
+}
+
 function generateBook(parsed)
 {
 	var original_file = filetry + "_original_edit.obj";
@@ -152,6 +209,8 @@ function generateBook(parsed)
 	var sorted_file = filetry + "_sort_edit.obj";
 
 	pages = [];
+
+	pages.push({model : null, html: parsed.contents});
 
 	//basic model
 	pages.push({model : original_file, randomRot: false});

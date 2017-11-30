@@ -21,6 +21,47 @@
 				text-align: center;
 			}
 
+
+			.contents {
+				counter-reset: h2;
+
+				text-align: left;
+
+			}
+			.contents h2:before {
+				content: counter(h2);
+				counter-increment: h2;
+				margin: 0 20px 0 0;
+			}
+
+			h2 {
+				counter-reset: h3;
+				margin:  0 0 0 20px;
+			}
+			.contents h3:before {
+				content: counter(h3);
+				counter-increment: h3;
+				margin: 0 20px 0 0;
+			}
+
+			h3 {
+				counter-reset: h4;
+				margin: 0 0 0 40px ;
+			}
+			.contents h4:before {
+				content: counter(h4);
+				counter-increment: h4;
+				margin: 0 20px 0 0;
+			}
+
+			h4 {
+
+				margin: 0 0 0 80px ;
+			}
+
+
+
+
 		</style>
 	</head>
 	<body>

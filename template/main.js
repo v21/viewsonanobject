@@ -124,7 +124,7 @@ var render = function(params)
 				object.traverse( function ( child ) {
 			        if ( child instanceof THREE.Mesh ) {
 			        	child.frustumCulled = false;
-
+			        	
 			            child.material = material;
 
 			            child.geometry.computeBoundingBox();
@@ -227,10 +227,26 @@ var render = function(params)
 }
 
 
+function addHtml(html) {
+	
+	var div = document.createElement("div");
+	div.innerHTML = html;
+	
+	document.getElementById('renders').appendChild( div);
+}
+
+
 function renderPages()
 {
 	for (var i = 0; i < data.length; i++) {	
-		render(data[i]);
+		if (data[i].model != null)
+		{
+			render(data[i]);
+		}
+		else if (data[i].html != null)
+		{
+			addHtml(data[i].html);
+		}
 	}
 }
 
