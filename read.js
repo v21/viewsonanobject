@@ -210,58 +210,58 @@ function generateBook(parsed)
 
 	pages = [];
 
-	pages.push({model : null, html: parsed.contents});
+	pages.push({header: "Contents", model : null, html: parsed.contents});
 
 	//basic model
-	pages.push({model : original_file, randomRot: false});
+	pages.push({header: "Default rotation", model : original_file, randomRot: false});
 
 	//with a rotation
 	var rng1 = Math.random();
 	//basic model
-	pages.push({model : original_file, rng : rng1, randomRot: true});
+	pages.push({header: "Rotation 1", model : original_file, rng : rng1, randomRot: true});
 
 	//with a rotation
 	var rng2 = Math.random();
 	//basic model
-	pages.push({model : original_file, rng : rng2, randomRot: true});
+	pages.push({header: "Rotation 2", model : original_file, rng : rng2, randomRot: true});
 
 
 	//with a rotation
 	var rng3 = Math.random();
 	//basic model
-	pages.push({model : original_file, rng : rng3, randomRot: true});
+	pages.push({header: "Rotation 3", model : original_file, rng : rng3, randomRot: true});
 
 
 	_.times(20, function(i){
-		pages.push({model : filetry + "_truncate" + (i + 1) + "_edit.obj", randomRot: false});
+		pages.push({header: "Truncation " + (20 - i) + " of 20", model : filetry + "_truncate" + (20 - i) + "_edit.obj", randomRot: false});
 	});
 
 	//slices of basic model
 	var sliceCount = _.random(5,25);
 	_.times(sliceCount, function(i){
-		pages.push({model : original_file, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
+		pages.push({header: "Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
 
 	_.times(sliceCount, function(i){
-		pages.push({model : original_file, rng : rng1, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
+		pages.push({header: "Rotation 1, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng1, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
 
 
 	_.times(sliceCount, function(i){
-		pages.push({model : original_file, rng : rng2, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
+		pages.push({header: "Rotation 2, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng2, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
 
 	_.times(sliceCount, function(i){
-		pages.push({model : original_file, rng : rng3, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
+		pages.push({header: "Rotation 3, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng3, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
 	if (parsed.metadata.groups.length > 1)
 	{
 		_.times(parsed.metadata.groups.length, function(i){
-			pages.push({model : original_file, showSingleGroup: true, group: i, rng : rng1, randomRot: false});
+			pages.push({header: "Group (" + parsed.metadata.groups[i] + ")", model : original_file, showSingleGroup: true, group: i, rng : rng1, randomRot: false});
 		});	
 	}
 
@@ -273,11 +273,11 @@ function generateBook(parsed)
 	//with a rotation
 	var rng1 = Math.random();
 	//basic model
-	pages.push({model : original_file, rng : rng1, randomRot: true, count : count});
+	pages.push({header: count.toString() + " instances", model : original_file, rng : rng1, randomRot: true, count : count});
 
 
 	_.times(sliceCount, function(i){
-		pages.push({model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+		pages.push({header: count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
 	
@@ -288,12 +288,12 @@ function generateBook(parsed)
 	//with a rotation
 	var rng1 = Math.random();
 	//basic model
-	pages.push({model : original_file, rng : rng1, randomRot: true, count : count});
+	pages.push({header: count.toString() + " instances", model : original_file, rng : rng1, randomRot: true, count : count});
 
 	//slices of basic model
 	var sliceCount = _.random(5,25);
 	_.times(sliceCount, function(i){
-		pages.push({model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+		pages.push({header: count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
 

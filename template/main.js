@@ -27,10 +27,10 @@ var render = function(params)
 	document.getElementById('renders').appendChild( canvas);
 
 
-	var div = document.createElement("div");
-	div.innerHTML = JSON.stringify(params);
-	
-	document.getElementById('renders').appendChild( div);
+	var header = document.createElement("div");
+	header.innerHTML = params.header;
+	header.className = "pageheader";
+	document.getElementById('renders').appendChild( header);
 
 
 	var camera;
@@ -227,12 +227,17 @@ var render = function(params)
 }
 
 
-function addHtml(html) {
+function addHtml(params) {
 	
 	var div = document.createElement("div");
-	div.innerHTML = html;
+	div.innerHTML = params.html;
 	
 	document.getElementById('renders').appendChild( div);
+
+	var header = document.createElement("div");
+	header.innerHTML = params.header;
+	header.className = "pageheader";
+	document.getElementById('renders').appendChild( header);
 }
 
 
@@ -245,7 +250,7 @@ function renderPages()
 		}
 		else if (data[i].html != null)
 		{
-			addHtml(data[i].html);
+			addHtml(data[i]);
 		}
 	}
 }
