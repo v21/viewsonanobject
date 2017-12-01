@@ -225,7 +225,7 @@ var render = function(params)
 	function onLoadModel () {
 
 		
-		for (var i = 0; i < 100; i++) {
+		for (var i = 0; i < 5; i++) {
 			var text = this.responseText;
 
 
@@ -235,7 +235,10 @@ var render = function(params)
 				if (params.process == "perturb")
 				{
 					for (x=0; x<lines.length; x++){
-						lines[x] = perturb(lines[x], x); //randomize individual points
+						if (lines[x].startsWith("v "))
+						{
+							lines[x] = perturb(lines[x], x); //randomize individual points
+						}
 					}
 				}
 				else if (params.process == "sort")
@@ -246,6 +249,34 @@ var render = function(params)
 				{
 					var lines = shuffle(lines); //shuffle lines randomly
 				}
+				else if (params.process == "shufflesubset")
+				{
+					var outp = [];
+					var linesToShuffle = [];
+					for (x=0; x<lines.length; x++){
+						if (lines[x].startsWith("v "))
+						{
+							linesToShuffle.push(lines[x]);
+						}
+						else
+						{
+							if (linesToShuffle.length > 0)
+							{
+								console.log("shuffling " + linesToShuffle.length + " lines");
+								console.log(linesToShuffle);
+								shuffle(linesToShuffle);
+
+								console.log(linesToShuffle);
+								outp = outp.concat(linesToShuffle);
+								linesToShuffle = [];
+							}
+							outp.push(lines[x]);
+						}
+					}
+					lines = outp;
+					console.log(lines);
+
+				}
 				else if (params.process == "sometimes fail")
 				{
 					if (Math.random() < 0.8)
@@ -253,17 +284,29 @@ var render = function(params)
 						lines = [];
 					}
 				}
+				else if (params.process == "killfaces")
+				{
+					for (x=0; x<lines.length; x++){
+						if (lines[x].startsWith("f ") && Math.random() < 0.5)
+						{
+							lines[x] = "";
+						}
+					}
+				}
 
 				text = lines.join("\r\n");
+
+				//console.log(text);
 			}
 
 
 			var object = loader.parse(text);
 			var rendered = renderObject(object);
 
-			console.log(i + "did object render? " + rendered);
+			
 			if (rendered)
 			{
+				console.log(i + " object rendered");
 				break;
 			}
 		}
@@ -304,32 +347,27 @@ function perturb(line, row){
 
 	for (d=0; d<line.length; d++){
 
-	if (line[d].match(/[-]?(\d*\.)?\d+/g)){
-	//line[d] = Number(line[d]) + Math.random()*d*(row*0.001); 
-	line[d] = Number(line[d]) + (row*0.001); 
-	}
+		if (line[d].match(/[-]?(\d*\.)?\d+/g)){
+			//line[d] = Number(line[d]) + Math.random()*d*(row*0.001); 
+			line[d] = Number(line[d]) * (1 + (Math.random() * row*0.001)); 
+		}
 	}
 	line = line.join(" ");
 	return line;
 }
 
 
-function shuffle(array) {
-	var currentIndex = array.length, temporaryValue, randomIndex;
 
-	while (0 !== currentIndex) {
 
-	randomIndex = Math.floor(Math.random() * currentIndex);
-	currentIndex -= 1;
-
-	temporaryValue = array[currentIndex];
-	array[currentIndex] = array[randomIndex];
-	array[randomIndex] = temporaryValue;
-	}
-
-	return array;
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
 }
-
 
 function renderPages()
 {
