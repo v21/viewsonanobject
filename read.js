@@ -296,6 +296,9 @@ function generateBook(parsed)
 		pages.push({header: count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
+	pages.push({header: "original, perturbed", model : original_file, process: "perturb", randomRot: false});
+	pages.push({header: "original, sort", model : original_file, process: "sort", randomRot: false});
+	pages.push({header: "original, shuffle", model : original_file, process: "shuffle", randomRot: false});
 
 
 	pages.push({model : perturbed_file, randomRot: false});
