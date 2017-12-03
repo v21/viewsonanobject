@@ -28,31 +28,38 @@ function callFile(file){
 
 		var parsed = parseFile(here);
 
-		
-
-
 		var process = "truncate";
 		var truncations = 20;//_.random(15,25);
 		for (var i = truncations; i >= 0; i--) {
 			done(_.first(here, (i/truncations)*here.length) , process + i);
 		}
 
+		var here2 = [];
+		var here3 = [];
+		var here4 = [];
+		var here5 = []; 
+		var here6 = [];
 
-		var process = "shuffle";
-		var here2 = shuffle(here); //shuffle lines randomly
-		done(here2, process);
-
-		var process = "perturb";
 		for (x=0; x<here.length; x++){
-			here2[x] = perturb(here[x], x); //randomize individual points
+			here2[x] = perturbV(here[x], x);
+			here3[x] = perturbF(here[x], x); 
+			here4[x] = sorting(here[x], "");
+			here5[x] = sorting(here[x], function(a, b){return 0.5 - Math.random()});
+			here6[x] = sorting(here[x], function(a, b){return a - b});
+
 			if (x == here.length-1){
-				done(here2, process);
+				done(here2, "perturbV");
+				done(here3, "perturbF");
+				done(here4, "sorting");
+				done(here5, "sorting_2");
+				done(here6, "sorting_3");
+
 			}
 
 		}
-		var process = "sort";
-		var here2 = here.sort(); // sort in numerical order
-		done(here2, process);
+
+
+
 
 		copyJpg(filetry + ".jpg");
 		generateBook(parsed);
@@ -72,9 +79,13 @@ var parseFile = function(lines)
 	var parseString = {
 		files: {
 			original_file: filetry + "_original_edit.obj",
-			perturbed_file: filetry + "_perturb_edit.obj",
-			shuffled_file: filetry + "_shuffle_edit.obj",
-			sorted_file: filetry + "_sort_edit.obj",
+			perturbedV_file: filetry + "_perturbV_edit.obj",
+			perturbedF_file: filetry + "_perturbF_edit.obj",
+			//shuffled_file: filetry + "_shuffle_edit.obj",
+			sorted_file: filetry + "_sorting_edit.obj",
+			sorted_file_2: filetry + "_sorting_2_edit.obj",
+			sorted_file_3: filetry + "_sorting_3_edit.obj"
+
 		},
 		metadata: {
 			name: filetry,
@@ -119,7 +130,27 @@ var parseFile = function(lines)
 
 
 
-function perturb(line, row){
+function perturbV(line, row){
+
+if (line.startsWith("v")){
+line = line.split(" ");
+
+for (d=0; d<line.length; d++){
+
+if (line[d].match(/[-]?(\d*\.)?\d+/g)){
+line[d] = Number(line[d]) + Math.random()*d*(row*0.001); 
+//line[d] = Number(line[d]) + (row*0.001); 
+}
+}
+line = line.join(" ");
+}
+return line;
+}
+
+
+function perturbF(line, row){
+
+if (line.startsWith("f")){
 line = line.split(" ");
 
 for (d=0; d<line.length; d++){
@@ -130,10 +161,27 @@ line[d] = Number(line[d]) + (row*0.001);
 }
 }
 line = line.join(" ");
+}
 return line;
 }
 
 
+function sorting(line, method){
+
+if (line.startsWith("v")){
+line = line.replace('v ','');
+line = line.split(" ");
+line = line.sort(method);
+//line = line.reverse();
+line = line.join(" ");
+line = "v " + line
+}
+return line;
+}
+
+
+
+/*
 function shuffle(array) {
 var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -149,6 +197,8 @@ array[randomIndex] = temporaryValue;
 
 return array;
 }
+*/
+
 
 
 
@@ -204,10 +254,12 @@ function makeContents(lines)
 function generateBook(parsed)
 {
 	var original_file = filetry + "_original_edit.obj";
-	var perturbed_file = filetry + "_perturb_edit.obj";
-	var shuffled_file = filetry + "_shuffle_edit.obj";
-	var sorted_file = filetry + "_sort_edit.obj";
-
+	var perturbedF_file = filetry + "_perturbF_edit.obj";
+	var perturbedV_file = filetry + "_perturbV_edit.obj";
+	//var shuffled_file = filetry + "_shuffle_edit.obj";
+	var sorted_file = filetry + "_sorting_edit.obj";
+	var sorted_file_2 = filetry + "_sorting_2_edit.obj";
+	var sorted_file_3 = filetry + "_sorting_3_edit.obj";
 	pages = [];
 
 	pages.push({header: "Contents", model : null, html: parsed.contents});
@@ -296,17 +348,14 @@ function generateBook(parsed)
 		pages.push({header: count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
-	pages.push({header: "original", model : original_file, randomRot: false});
-	pages.push({header: "original, perturbed", model : original_file, process: "perturb", randomRot: false});
-	pages.push({header: "original, killfaces", model : original_file, process: "killfaces", randomRot: false});
-	pages.push({header: "original, shufflesubset", model : original_file, process: "shufflesubset", randomRot: false});
-	pages.push({header: "original, sort", model : original_file, process: "sort", randomRot: false});
-	pages.push({header: "original, shuffle", model : original_file, process: "shuffle", randomRot: false});
 
 
-	pages.push({model : perturbed_file, randomRot: false});
-	pages.push({model : shuffled_file, randomRot: false});
-	pages.push({model : sorted_file, randomRot: false});
+	pages.push({header: "perturbed vertices", model : perturbedV_file, randomRot: false});
+	pages.push({header:  "perturbed faces", model : perturbedF_file, randomRot: false});
+	//pages.push({header:  "shuffled", model : shuffled_file, randomRot: false});
+	pages.push({header:  "sorted", model : sorted_file, randomRot: false});
+	pages.push({header:  "sorted 2", model : sorted_file_2, randomRot: false});
+	pages.push({header:  "sorted 3", model : sorted_file_3, randomRot: false});
 
 
 	//console.log(pages);
@@ -324,14 +373,14 @@ function generateBook(parsed)
 }
 
 
-function done (send, process){
-send = send.join("\r\n");
+function done(send, process){
+var send = send.join("\r\n");
 writeData(send, process);
 }
 
-function writeData(here, process){
+function writeData(okay, process){
 var newfile = filetry + "_" + process + "_edit.obj";
-fs.writeFile("output/" + filetry + "/" +newfile, here, (err) => {
+fs.writeFile("output/" + filetry + "/" +newfile, okay, (err) => {
 if (err) throw err;
 console.log(newfile + ' has been saved!');
 });
