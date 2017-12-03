@@ -83,6 +83,7 @@
 		<script>
 
 		var dataName = JSON.stringify(JSONdata.metadata.name).replace(/["\[\]]/g, '').replace(/,/g, "<br>");
+/*
 		var dataGroups = JSON.stringify(JSONdata.metadata.groups).replace(/["\[\]]/g, '').replace(/,/g, "<br>");
 		var dataUseMaterial = JSON.stringify(JSONdata.metadata.use_material).replace(/["\[\]]/g, '').replace(/,/g, "<br>");
 		var dataMtlLib = JSON.stringify(JSONdata.metadata.mtl_lib).replace(/["\[\]]/g, '').replace(/,/g, "<br>");
@@ -100,6 +101,7 @@
 		div.innerHTML += "material library:<br>";
 		div.innerHTML += dataMtlLib;
 		div.innerHTML += "<br><br>";
+*/
 
 		document.getElementById('jpgImg').innerHTML = "<center><img src= " + dataName + ".jpg></center>";
 
