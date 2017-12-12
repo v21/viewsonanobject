@@ -358,9 +358,9 @@ function generateBook(parsed)
 
 
 	addPage(1, {header: "Perturbed vertices", model : perturbedV_file, rng : rng1, randomRot: false});
-	addPage(.5, {header: "Rotation 1, Perturbed vertices", model : perturbedV_file, rng : rng1, randomRot: false});
-	addPage(.5, {header: "Rotation 2, Perturbed vertices", model : perturbedV_file, rng : rng2, randomRot: false});
-	addPage(.5, {header: "Rotation 3, Perturbed vertices", model : perturbedV_file, rng : rng3, randomRot: false});
+	addPage(.5, {header: "Rotation 1, Perturbed vertices", model : perturbedV_file, rng : rng1, randomRot: true});
+	addPage(.5, {header: "Rotation 2, Perturbed vertices", model : perturbedV_file, rng : rng2, randomRot: true});
+	addPage(.5, {header: "Rotation 3, Perturbed vertices", model : perturbedV_file, rng : rng3, randomRot: true});
 
 
 	_.times(sliceCount, function(i){
@@ -383,6 +383,11 @@ function generateBook(parsed)
 
 
 	addPage(1, {header: "Perturbed faces", model : perturbedF_file, rng : rng1, randomRot: false});
+	
+	addPage(.5, {header: "Rotation 1, Perturbed faces", model : perturbedF_file, rng : rng1, randomRot: true});
+	addPage(.5, {header: "Rotation 2, Perturbed faces", model : perturbedF_file, rng : rng2, randomRot: true});
+	addPage(.5, {header: "Rotation 3, Perturbed faces", model : perturbedF_file, rng : rng3, randomRot: true});
+
 
 
 	_.times(sliceCount, function(i){
