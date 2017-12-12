@@ -450,7 +450,9 @@ function generateBook(parsed)
 		var processes = [
 			["perturb", " (perturbed)"],
 			["sort", " (sorted)"],
-			["shuffle", " (shuffled)"]
+			["shuffle", " (shuffled)"],
+			["killfaces", " (faces knocked out)"],
+			["shufflesubset", " (somewhat shuffled)"]
 		];
 		var filesWNames = [
 			[sorted_file, "Sorted A"],
