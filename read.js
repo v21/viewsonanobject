@@ -262,6 +262,14 @@ function generateBook(parsed)
 	var sorted_file_3 = filetry + "_sorting_3_edit.obj";
 	pages = [];
 
+	var addPage = function(probability, page)
+	{
+		if (Math.random() < probability)
+		{
+			pages.push(page);
+		}
+	}
+
 	pages.push({header: "Contents", model : null, html: parsed.contents});
 
 	//basic model
@@ -329,10 +337,10 @@ function generateBook(parsed)
 
 
 	_.times(sliceCount, function(i){
-		pages.push({header: count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+		addPage(0.7, {header: count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
-	
+
 
 	//multiple models!
 	var count = _.random(30, 100);
@@ -340,22 +348,149 @@ function generateBook(parsed)
 	//with a rotation
 	var rng1 = Math.random();
 	//basic model
-	pages.push({header: count.toString() + " instances", model : original_file, rng : rng1, randomRot: true, count : count});
+	addPage(0.7, {header: count.toString() + " instances", model : original_file, rng : rng1, randomRot: true, count : count});
 
 	//slices of basic model
 	var sliceCount = _.random(5,25);
 	_.times(sliceCount, function(i){
-		pages.push({header: count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+		addPage(0.4, {header: count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : original_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+
+	addPage(1, {header: "Perturbed vertices", model : perturbedV_file, rng : rng1, randomRot: false});
+	addPage(.5, {header: "Rotation 1, Perturbed vertices", model : perturbedV_file, rng : rng1, randomRot: false});
+	addPage(.5, {header: "Rotation 2, Perturbed vertices", model : perturbedV_file, rng : rng2, randomRot: false});
+	addPage(.5, {header: "Rotation 3, Perturbed vertices", model : perturbedV_file, rng : rng3, randomRot: false});
+
+
+	_.times(sliceCount, function(i){
+		addPage(0.4, {header: "Perturbed vertices, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedV_file, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+
+	_.times(sliceCount, function(i){
+		addPage(0.1, {header: "Rotation 1, Perturbed vertices, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedV_file, rng : rng1, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+	_.times(sliceCount, function(i){
+		addPage(0.1, {header: "Rotation 2, Perturbed vertices, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedV_file, rng : rng2, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+	_.times(sliceCount, function(i){
+		addPage(0.1, {header: "Rotation 3, Perturbed vertices, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedV_file, rng : rng3, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
 
 
 
-	pages.push({header: "perturbed vertices", model : perturbedV_file, randomRot: false});
-	pages.push({header:  "perturbed faces", model : perturbedF_file, randomRot: false});
+	addPage(1, {header: "Perturbed faces", model : perturbedF_file, rng : rng1, randomRot: false});
+
+
+	_.times(sliceCount, function(i){
+		addPage(0.4, {header: "Perturbed faces, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedF_file, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+
+
+	_.times(sliceCount, function(i){
+		addPage(0.1, {header: "Rotation 1, Perturbed faces, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedF_file, rng : rng1, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+	_.times(sliceCount, function(i){
+		addPage(0.1, {header: "Rotation 2, Perturbed faces, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedF_file, rng : rng2, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+	_.times(sliceCount, function(i){
+		addPage(0.1, {header: "Rotation 3, Perturbed faces, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedF_file, rng : rng3, randomRot: true, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+
+	_.times(sliceCount, function(i){
+		addPage(0.05, {header: "Perturbed vertices, " + count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedV_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+	_.times(sliceCount, function(i){
+		addPage(0.05, {header: "Perturbed faces, " + count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : perturbedF_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+
 	//pages.push({header:  "shuffled", model : shuffled_file, randomRot: false});
-	pages.push({header:  "sorted", model : sorted_file, randomRot: false});
-	pages.push({header:  "sorted 2", model : sorted_file_2, randomRot: false});
-	pages.push({header:  "sorted 3", model : sorted_file_3, randomRot: false});
+	pages.push({header:  "Sorted A", model : sorted_file, randomRot: false});
+
+	_.times(sliceCount, function(i){
+		addPage(0.2, {header: "Sorted A, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+	pages.push({header:  "Sorted B", model : sorted_file_2, randomRot: false});
+
+	_.times(sliceCount, function(i){
+		addPage(0.2, {header: "Sorted B, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_2, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+	pages.push({header:  "Sorted C", model : sorted_file_3, randomRot: false});
+
+	_.times(sliceCount, function(i){
+		addPage(0.2, {header: "Sorted C, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_3, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+
+
+	_.times(sliceCount, function(i){
+		addPage(0.05, {header: "Sorted A, " + count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+	_.times(sliceCount, function(i){
+		addPage(0.05, {header: "Sorted B, " + count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_2, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+	_.times(sliceCount, function(i){
+		addPage(0.05, {header: "Sorted C, " + count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_3, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
+
+
+	_.times(50, function(i) {
+
+		var processes = [
+			["perturb", " (perturbed)"],
+			["sort", " (sorted)"],
+			["shuffle", " (shuffled)"]
+		];
+		var filesWNames = [
+			[sorted_file, "Sorted A"],
+			[sorted_file_2, "Sorted B"],
+			[sorted_file_3, "Sorted C"],
+			[perturbedF_file, "Perturbed faces"],
+			[perturbedV_file, "Perturbed vertices"],
+			[original_file, ""]
+		];
+
+		var rngs = [rng1, rng2, rng3];
+
+		var proc = _.sample(processes);
+		var fileWName = _.sample(filesWNames);
+
+
+		var sliceCount = _.random(5,50);
+		var slice = _.random(1,sliceCount - 1);
+
+
+		var count = 1; 
+		if (Math.random() > .5) count = _.random(2, 100);
+
+		var slice = (Math.random() > 0.3 ? true : false);
+
+		addPage(0.5, {header:fileWName[1] + proc[1] + (count > 1 ? (", " + count.toString() + " instances") : "") + (slice ? (", Slice " + (slice) + " of " + sliceCount) : ""), 
+			model : fileWName[0], 
+			rng : _.sample(rngs), 
+			randomRot: (count > 1 ? true : (Math.random() > 0.3 ? true : false)), 
+			count : count, 
+			slices : slice, 
+			sliceIndex : slice,
+			sliceCount : sliceCount,
+			process: proc[0]});
+	})
+
+
+
+
+
 
 
 	//console.log(pages);
