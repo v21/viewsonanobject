@@ -1,7 +1,7 @@
 
 
-var width = 500;
-var height = 500;
+var width = 2000;
+var height = 2000;
 
 var renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setClearColor( 0xffffff, 0 );
