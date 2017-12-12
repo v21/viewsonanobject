@@ -383,7 +383,7 @@ function generateBook(parsed)
 
 
 	addPage(1, {header: "Perturbed faces", model : perturbedF_file, rng : rng1, randomRot: false});
-	
+
 	addPage(.5, {header: "Rotation 1, Perturbed faces", model : perturbedF_file, rng : rng1, randomRot: true});
 	addPage(.5, {header: "Rotation 2, Perturbed faces", model : perturbedF_file, rng : rng2, randomRot: true});
 	addPage(.5, {header: "Rotation 3, Perturbed faces", model : perturbedF_file, rng : rng3, randomRot: true});
@@ -420,30 +420,45 @@ function generateBook(parsed)
 	//pages.push({header:  "shuffled", model : shuffled_file, randomRot: false});
 	pages.push({header:  "Sorted A", model : sorted_file, randomRot: false});
 
+	addPage(.5, {header: "Rotation 1, Sorted A", model : sorted_file, rng : rng1, randomRot: true});
+	addPage(.5, {header: "Rotation 2, Sorted A", model : sorted_file, rng : rng2, randomRot: true});
+	addPage(.5, {header: "Rotation 3, Sorted A", model : sorted_file, rng : rng3, randomRot: true});
+
 	_.times(sliceCount, function(i){
 		addPage(0.2, {header: "Sorted A, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
-
-	pages.push({header:  "Sorted B", model : sorted_file_2, randomRot: false});
-
-	_.times(sliceCount, function(i){
-		addPage(0.2, {header: "Sorted B, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_2, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
-	})
-
-	pages.push({header:  "Sorted C", model : sorted_file_3, randomRot: false});
-
-	_.times(sliceCount, function(i){
-		addPage(0.2, {header: "Sorted C, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_3, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
-	})
-
 
 
 	_.times(sliceCount, function(i){
 		addPage(0.05, {header: "Sorted A, " + count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
+
+	pages.push({header:  "Sorted B", model : sorted_file_2, randomRot: false});
+
+	addPage(.5, {header: "Rotation 1, Sorted B", model : sorted_file_2, rng : rng1, randomRot: true});
+	addPage(.5, {header: "Rotation 2, Sorted B", model : sorted_file_2, rng : rng2, randomRot: true});
+	addPage(.5, {header: "Rotation 3, Sorted B", model : sorted_file_2, rng : rng3, randomRot: true});
+
+
+
+	_.times(sliceCount, function(i){
+		addPage(0.2, {header: "Sorted B, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_2, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
 	_.times(sliceCount, function(i){
 		addPage(0.05, {header: "Sorted B, " + count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_2, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
+
+	pages.push({header:  "Sorted C", model : sorted_file_3, randomRot: false});
+
+	addPage(.5, {header: "Rotation 1, Sorted C", model : sorted_file_3, rng : rng1, randomRot: true});
+	addPage(.5, {header: "Rotation 2, Sorted C", model : sorted_file_3, rng : rng2, randomRot: true});
+	addPage(.5, {header: "Rotation 3, Sorted C", model : sorted_file_3, rng : rng3, randomRot: true});
+
+	_.times(sliceCount, function(i){
+		addPage(0.2, {header: "Sorted C, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_3, randomRot: false, slices : true, sliceIndex : i, sliceCount : sliceCount});
+	})
+
 	_.times(sliceCount, function(i){
 		addPage(0.05, {header: "Sorted C, " + count.toString() + " instances, Slice " + (sliceCount - i) + " of " + sliceCount, model : sorted_file_3, rng : rng1, randomRot: true, count : count, slices : true, sliceIndex : i, sliceCount : sliceCount});
 	})
