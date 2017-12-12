@@ -4,12 +4,62 @@
 		<meta charset=utf-8>
 		<title>views on an object</title>
 		<style>
+
+
 		 	@import url('/Inconsolata');
-			body { margin: 30%; 
-			font-family: 'Inconsolata', monospace;
-			font-size: 14px;
+			body {
+				font-family: 'Inconsolata', monospace;
+				font-size: 14px;
 
 			}
+
+			@page {
+			  size: A4 portrait;
+			  margin: 2cm;
+			}
+
+
+			@page :left {
+			  margin-left: 3cm;
+			}
+
+			@page :right {
+			  margin-left: 4cm;
+			}
+
+			.page {
+
+			  width:100%; 
+			  height:100%;
+			  page-break-before: always;
+			}
+
+			.pageheader {
+				string-set: pagetitle content();
+			}
+
+			@page {
+			  @top-center {
+			    content: string(pagetitle);
+			    /*margin: 30pt 0 10pt 0;*/
+			    font-size: 14pt;
+			    text-align: center;
+				vertical-align: middle;
+			  }
+			}
+
+			@page:right{
+			  @bottom-right {
+			    content: counter(page);
+			  }
+			}
+
+			@page:left{
+			  @bottom-left {
+			    content: counter(page);
+			  }
+			}
+
 			#title{
 				font-weight: bold;
 				font-size: 16px;
@@ -21,6 +71,13 @@
 				text-align: center;
 			}
 
+			.render {
+				object-fit: contain;
+				width:100%;
+				height: auto;
+
+				margin-top: 5cm;
+			}
 
 			.contents {
 				counter-reset: h2;
@@ -78,7 +135,8 @@
 		<div id="title">views on an object</div><br><br><br>
 		<div id="jpgImg"></div><br><br><br>
 		<div id="metadata"></div><br><br><br>
-		<center><div id ="renders"></div></center>
+		<div class="forcepagebreak"></div>
+		<div id ="renders"></div>
 
 		<script>
 

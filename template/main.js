@@ -14,9 +14,17 @@ var aspect = width / height;
 
 var render = function(params)
 {
+	var page = document.createElement("div");
+	page.className = "page";
+	document.getElementById('renders').appendChild(page);
 
+	var header = document.createElement("div");
+	header.innerHTML = params.header;
+	header.className = "pageheader";
+	page.appendChild( header);
 
 	var canvas = document.createElement("canvas");
+	canvas.className = "render";
 
 	var context = canvas.getContext( '2d' );
 
@@ -24,13 +32,9 @@ var render = function(params)
 	context.canvas.width  = width;
 	context.canvas.height = height;
 
-	document.getElementById('renders').appendChild( canvas);
+	page.appendChild( canvas);
 
 
-	var header = document.createElement("div");
-	header.innerHTML = params.header;
-	header.className = "pageheader";
-	document.getElementById('renders').appendChild( header);
 
 
 	var camera;
@@ -330,15 +334,20 @@ var render = function(params)
 
 function addHtml(params) {
 	
-	var div = document.createElement("div");
-	div.innerHTML = params.html;
-	
-	document.getElementById('renders').appendChild( div);
+	var page = document.createElement("div");
+	page.className = "page";
+	document.getElementById('renders').appendChild(page);
 
 	var header = document.createElement("div");
 	header.innerHTML = params.header;
 	header.className = "pageheader";
-	document.getElementById('renders').appendChild( header);
+	page.appendChild( header);
+
+	var div = document.createElement("div");
+	div.innerHTML = params.html;
+	
+	page.appendChild( div);
+
 }
 
 
