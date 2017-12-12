@@ -16,6 +16,7 @@ var render = function(params)
 {
 	var page = document.createElement("div");
 	page.className = "page";
+
 	document.getElementById('renders').appendChild(page);
 
 	var header = document.createElement("div");
@@ -223,11 +224,14 @@ var render = function(params)
 		renderer.render(scene, camera);
 
 		context.drawImage( renderer.domElement, 0, 0 ,width, height);
+
+
 		return true;
 	}
 
 	function onLoadModel () {
 
+		var rendered = false;
 		
 		for (var i = 0; i < 5; i++) {
 			var text = this.responseText;
@@ -305,7 +309,7 @@ var render = function(params)
 
 
 			var object = loader.parse(text);
-			var rendered = renderObject(object);
+			rendered = renderObject(object);
 
 			
 			if (rendered)
@@ -315,7 +319,11 @@ var render = function(params)
 			}
 		}
 
-
+		if (!rendered)
+		{
+			console.log("can't render " + params.header + " giving up");
+			document.getElementById('renders').removeChild(page);
+		}
 
 
 
