@@ -63,15 +63,24 @@
 			}
 
 			#title{
+				margin-top: 13cm;
 				font-weight: bold;
 				font-size: 16px;
 				text-align: center;
 			}
+
+			#subtitle{
+				font-size: 16px;
+				text-align: center;
+			}
+
 			#metadata{
 				font-weight: bold;
 				font-size: 12px;
 				text-align: center;
 			}
+
+
 
 			.render {
 				object-fit: contain;
@@ -139,9 +148,11 @@
 		<script src="OBJLoader.js"></script>
 		<script src="data.js"></script>
 
-		<div id="title">views on an object</div><br><br><br>
-		<div id="jpgImg"></div><br><br><br>
-		<div id="metadata"></div><br><br><br>
+		<div id="frontpage">
+			<div id="title">views on an object</div><br><br>
+			<div id="subtitle">(from the NTU 3d model database)</div><br><br><br><br><br><br><br><br><br>
+			<div id="jpgImg"></div>
+		</div>
 		<div class="forcepagebreak"></div>
 		<div id ="renders"></div>
 
@@ -169,6 +180,7 @@
 */
 
 		document.getElementById('jpgImg').innerHTML = "<center><img src= " + dataName + ".jpg></center>";
+		document.getElementById('title').innerHTML = "views on an object - " + dataName;
 
 		</script>
 
