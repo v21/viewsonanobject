@@ -476,14 +476,14 @@ function generateBook(parsed)
 		var count = 1; 
 		if (Math.random() > .5) count = _.random(2, 100);
 
-		var slice = (Math.random() > 0.3 ? true : false);
+		var doSlice = (Math.random() > 0.3 ? true : false);
 
-		addPage(0.5, {header:fileWName[1] + proc[1] + (count > 1 ? (", " + count.toString() + " instances") : "") + (slice ? (", Slice " + (slice) + " of " + sliceCount) : ""), 
+		addPage(0.5, {header:fileWName[1] + proc[1] + (count > 1 ? (", " + count.toString() + " instances") : "") + (doSlice ? (", Slice " + (slice) + " of " + sliceCount) : ""), 
 			model : fileWName[0], 
 			rng : _.sample(rngs), 
 			randomRot: (count > 1 ? true : (Math.random() > 0.3 ? true : false)), 
 			count : count, 
-			slices : slice, 
+			slices : doSlice, 
 			sliceIndex : slice,
 			sliceCount : sliceCount,
 			process: proc[0]});
