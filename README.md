@@ -10,9 +10,9 @@ _-kr pipkin & v21_
 
 Sample outputs:
 
-[face](examples/views on an object-face.pdf)
-[tree](examples/views on an object-tree.pdf)
-[pln_stuk](examples/views on an object-pln_stuk.pdf)
+[face](examples/views%20on%20an%20object-face.pdf)
+[tree](examples/views%20on%20an%20object-tree.pdf)
+[pln_stuk](examples/views%20on%20an%20object-pln_stuk.pdf)
 
 [more](examples/extra)
 
@@ -22,4 +22,4 @@ First, obtain the NTU3D model database, or any other database of 3D models. Thes
 
 Install a recent version of node (7.10 works). Fetch the requirements by running `npm install` in the root of this folder. You should now be able to run `node read.js` - hopefully, a lot of stuff should be spewed into the terminal, and you should have a new folder within `output/` containing a book, in webpage form. 
 
-To convert that book to a pdf, you can either run a local development server and browse to it via localhost (I use the server built into php : `php -S localhost:8080`) or upload it to a web server. Navigate to that page (these outputs were rendered in Chrome). It will take a while to load and render the page - every page is a new WebGL scene. Now go to Print, and "Print as PDF" (this may also take some time to render).
+To convert that book to a pdf, you can either run a local development server and browse to it via localhost (I use the server built into php : `php -S localhost:8080`) or upload it to a web server. Navigate to that page (these outputs were rendered in Chrome). It will take a minute or so to load and render the page - every page is a new WebGL scene. Now go to Print, and "Print as PDF" (this may also take some time to render).
