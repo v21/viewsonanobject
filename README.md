@@ -18,7 +18,7 @@ _-kr pipkin & v21_
 
 **The NTU3D model database**
 
-The NTU3D model database was a online database of 3D models, hosted by the National Taiwan University at [http://3d.csie.ntu.edu.tw/~dynamic/database/index.html](http://3d.csie.ntu.edu.tw/~dynamic/database/index.html). It now appears to be permanently offline, but a description of it can be found in the paper [3D Model Search Engine Based on Lightfield Descriptors](https://www.yumpu.com/en/document/view/18042248/3d-model-search-engine-based-on-lightfield-descriptors) by Yu-Te Shen, Ding-Yun Chen, Xiao-Pei Tian and Ming Ouhyoung. The models were scraped from the web in 2003. The models lack any accompanying material data - what colours or textures they originally had are captured only in the jpg preview.
+The NTU3D model database was a online database of 3D models, hosted by the National Taiwan University at [http://3d.csie.ntu.edu.tw/~dynamic/database/index.html](http://3d.csie.ntu.edu.tw/~dynamic/database/index.html). It now appears to be permanently offline, but a description of it can be found in the paper [3D Model Search Engine Based on Lightfield Descriptors](https://www.yumpu.com/en/document/view/18042248/3d-model-search-engine-based-on-lightfield-descriptors) by Yu-Te Shen, Ding-Yun Chen, Xiao-Pei Tian and Ming Ouhyoung. The database contains slightly over 10,000 models, all originally scraped from the web in 2003. The models lack any accompanying material data - what colours or textures they originally had are captured only in the jpg preview.
 
 **How to generate your own:**
 
